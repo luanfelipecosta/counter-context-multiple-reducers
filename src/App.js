@@ -1,11 +1,14 @@
 import React from 'react';
 import HomePage from './home.page';
+import { Store } from './store';
 
 function App() {
   return (
-    <div className="app">
-      <HomePage/>
-    </div>
+    <Store>
+      <div className="app">
+        <HomePage />
+      </div>
+    </Store>
   );
 }
 
