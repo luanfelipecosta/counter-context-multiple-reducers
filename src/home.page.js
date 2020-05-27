@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import Counter from './counter/counter.component';
+import { useCounterReducer, CounterTypes } from './counter/counter.reducer';
 
 const HomePage = () => {
-  const [count, setCount] = useState(0);
+  const [counterState, dispatch] = useCounterReducer();
+  const { count } = counterState;
 
-  const increment = () => setCount(count + 1);
-  const decrement = () => setCount(count - 1);
+  const increment = () => dispatch({ type: CounterTypes.Increment });
+  const decrement = () => dispatch({ type: CounterTypes.Decrement });
 
   return (
     <>
