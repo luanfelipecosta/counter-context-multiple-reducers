@@ -1,5 +1,5 @@
 import React, { useContext, createContext } from 'react';
-import { useCounterReducer } from './counter/counter.reducer';
+import { useCounterReducer, useResetReducer } from './counter/counter.reducer';
 // context
 const storage = createContext({
   store: { counter: null },
@@ -8,13 +8,19 @@ const storage = createContext({
 
 export const Store = ({ children }) => {
   const { Provider } = storage;
-  const [counter, dispatch] = useCounterReducer();
+  const [counter, counterDispatch] = useCounterReducer();
+  const [reset, resetDispatch] = useResetReducer();
+
+  const combinedDispatchs = [counterDispatch, resetDispatch];
+
+  const dispatchForAll = (action) =>
+    combinedDispatchs.map((dispatch) => dispatch(action));
 
   return (
     <Provider
       value={{
-        store: { counter },
-        dispatch,
+        store: { counter, reset },
+        dispatch: dispatchForAll,
       }}
     >
       {children}
